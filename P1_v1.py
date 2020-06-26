@@ -1,23 +1,23 @@
 tablaR = []
-N = int(input("Cantidad N de atributos de R: "))
-atr = input("Atributos de R: ")
+N = int(input())
+atr = input()
 atr_R = atr.split(" ")
 
 
-NR = int(input("Cantidad de tuplas de R: "))
+NR = int(input())
 for i in range(NR):
-    fila_str = input("Ingrese tupla " + str(i+1) +": ")
+    fila_str = input()
     fila_ls = list(map(int, fila_str.split(" ")))
     tablaR.append(fila_ls)
 
 tablaS = []
-M = int(input("Cantidad M de atributos de S: "))
-atr = input("Atributos de S: ")
+M = int(input())
+atr = input()
 atr_S = atr.split(" ")
 
-NS = int(input("Cantidad de tuplas de S: "))
+NS = int(input())
 for i in range(NS):
-    fila_str = input("Ingrese tupla " + str(i+1) +": ")
+    fila_str = input()
     fila_ls = list(map(int, fila_str.split(" ")))
     tablaS.append(fila_ls)
 
@@ -28,12 +28,23 @@ atr_T = list(set(atr_R) | set(atr_S))
 atr_T.sort()
 P = len(atr_T)
 
+if L == 0:
+    print(P)
+    print(" ".join(atr_T).strip())
+    print(0)
+    raise SystemExit
+
 tablaT = []
 posAtrR = []
 posAtrS = []
+
+pos_r = 0
+pos_s = 0
 for elem in atr_iguales:
-    posAtrR.append(atr_R.index(elem))
-    posAtrS.append(atr_S.index(elem))
+    pos_r = atr_R.index(elem, pos_r)
+    pos_s = atr_S.index(elem, pos_s)
+    posAtrR.append(pos_r)
+    posAtrS.append(pos_s)
 
 for filaR in tablaR:
     for filaS in tablaS:
@@ -57,7 +68,7 @@ for filaR in tablaR:
         
 atr_T = " ".join(atr_T)
 print(P)
-print(atr_T)
+print(atr_T.strip())
 print(len(tablaT))
 for row in tablaT:
     row = list(map(str, row))
