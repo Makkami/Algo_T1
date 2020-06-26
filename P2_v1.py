@@ -35,7 +35,7 @@ def Join(N, M, atr_R, atr_S, tablaR, tablaS):
 
 Tabla = list()
 cont_arcos = 0
-conjunto = set()
+conjunto = list()
 
 arco = input("Ingrese arco: ")
 
@@ -51,5 +51,5 @@ for a, b, c in tablaT:
     if ([b,c,a] in tablaT) or ([c,a,b] in tablaT):
         lista = [a, b, c]
         lista.sort()
-        conjunto.add(tuple(lista))
+        conjunto.append(tuple(lista))
 print (len(conjunto))
