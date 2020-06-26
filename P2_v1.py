@@ -31,10 +31,7 @@ def Join(N, M, atr_R, atr_S, tablaR, tablaS):
                 ls_tuplas.sort()
                 filaT = [tupla[1] for tupla in ls_tuplas]
                 tablaT.append(filaT)
-
     return tablaT
-        
-
 
 Tabla = list()
 cont_arcos = 0
