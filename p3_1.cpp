@@ -11,13 +11,6 @@ using namespace std;
 void strassen(vvi &m1, vvi &m2, vvi &resultado,
             int fila1, int columna1, int fila2, int columna2, int fila3, int columna3, int n);
 
-
-void strassen_h(vvi &a, vvi &b, vvi &c, int fila, int columna, int n)
-{
-    strassen(a, b, c, 0, 0, 0, 0, fila, columna, n);
-}
-
-
 int main()
 {
     //caso (knxn)*(nxkn)
