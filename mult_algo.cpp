@@ -1,12 +1,9 @@
 #include <vector>
-#include <iostream>
-#include <iomanip>
-#include <chrono>
-#include <cstdlib>
-#include <cmath>
+#include "mult_algo.h"
 #define vi vector<int>
 #define vvi vector<vi>
-#define SIZE 4
+
+
 using namespace std;
 
 
@@ -60,7 +57,8 @@ void resta(vvi &a, vvi &b, vvi &resultado,
         }
 }
 
-void armar(vvi &p1, vvi &p2, vvi &p3, vvi &p4, vvi &p5, vvi &p6, vvi &p7, vvi &resultado, int n)
+void armar(vvi &p1, vvi &p2, vvi &p3, vvi &p4, vvi &p5, vvi &p6, vvi &p7,
+        vvi &resultado, int fila, int columna, int n)
 {
     /*
     Recibe 8 matrices desde 'p1' hasta 'p7' de tamaño ('n'/2)x('n'/2) y una matriz vacía 'resultado'.
@@ -70,18 +68,18 @@ void armar(vvi &p1, vvi &p2, vvi &p3, vvi &p4, vvi &p5, vvi &p6, vvi &p7, vvi &r
    int n_2 = n>>1;
 
    //p5+p4-p2+p6
-   resta(p4, p2, resultado, 0, 0, 0, 0, 0, 0, n_2, false);
-   suma(p5, p6, resultado, 0, 0, 0, 0, 0, 0, n_2, true);
+   resta(p4, p2, resultado, 0, 0, 0, 0, fila, columna, n_2, false);
+   suma(p5, p6, resultado, 0, 0, 0, 0, fila, columna, n_2, true);
 
    //p1+p2
-   suma(p1, p2, resultado, 0, 0, 0, 0, 0, n_2, n_2, false);
+   suma(p1, p2, resultado, 0, 0, 0, 0, fila, columna+n_2, n_2, false);
 
    //p3+p4
-   suma(p3, p4, resultado, 0, 0, 0, 0, n_2, 0, n_2, false);
+   suma(p3, p4, resultado, 0, 0, 0, 0, fila+n_2, columna, n_2, false);
 
    //p1+p5−p3−p7
-   resta(p5, p3, resultado, 0, 0, 0, 0, n_2, n_2, n_2, false);
-   resta(p1, p7, resultado, 0, 0, 0, 0, n_2, n_2, n_2, true);
+   resta(p5, p3, resultado, 0, 0, 0, 0, fila+n_2, columna+n_2, n_2, false);
+   resta(p1, p7, resultado, 0, 0, 0, 0, fila+n_2, columna+n_2, n_2, true);
 }
 
 void strassen(vvi &m1, vvi &m2, vvi &resultado,
@@ -138,7 +136,7 @@ void strassen(vvi &m1, vvi &m2, vvi &resultado,
     //p7 = aux*aux2
     strassen(aux, aux2, p7, 0, 0, 0, 0, 0, 0, n_2);
 
-    armar(p1, p2, p3, p4, p5, p6, p7, resultado, n);
+    armar(p1, p2, p3, p4, p5, p6, p7, resultado, fila3, columna3, n);
 }
 
 void naive_mul(vvi &a, vvi &b, vvi &resultado, int n)
@@ -148,63 +146,4 @@ void naive_mul(vvi &a, vvi &b, vvi &resultado, int n)
         for(j=0; j<n; j++)
             for(k=0; k<n; k++)
                 resultado[i][j] += a[i][k]*b[k][j];
-}
-
-
-void matriz_random(vvi &a, vvi &b, int n)
-{
-    int i, j;
-    for(i=0; i<n; i++)
-        for(j=0; j<n; j++)
-        {
-            a[i][j] = rand()%101;
-            b[i][j] = rand()%101;
-        }
-}
-
-using namespace std::chrono;
-
-
-int main()
-{
-    /*
-    vvi a = {{8,2,1,4},{3,2,1,4},{0,2,6,4},{1,2,3,4}};
-    vvi b = {{4,5,2,5},{6,5,4,5},{9,6,5,5},{6,10,4,5}};
-    vvi c(SIZE, vi(SIZE, 0));
-    naive_mul(a, b, c, SIZE);
-    //strassen(a, b, c, 0, 0, 0, 0, 0, 0, SIZE);
-    //resta(a, b, c, 0, 0, 0, 0, 0, 0, 2, true);
-    for(int i=0; i<SIZE; i++)
-    {
-        for(int j=0; j<SIZE; j++)
-            cout << c[i][j] << " ";
-        cout << endl;
-    }
-    */
-
-   //std::cout<<std::setprecision(10);
-   int i;
-    for(i=2; i<11; i++)
-    {
-        srand((unsigned)NULL);
-        int n = pow(2, i);
-        vvi a(n, vi(n));
-        vvi b(n, vi(n));
-        vvi c(n, vi(n));
-        auto inicio = high_resolution_clock::now();
-        strassen(a, b, c, 0, 0, 0, 0, 0, 0, n);
-        auto fin = high_resolution_clock::now();
-        auto duracion = duration_cast<microseconds>(fin-inicio);
-        cout << "s=" << duracion.count() << endl;
-        
-        c.clear();
-
-        auto inicio2 = high_resolution_clock::now();
-        naive_mul(a, b, c, n);
-        auto fin2 = high_resolution_clock::now();
-        auto duracion2 = duration_cast<microseconds>(fin2-inicio2);
-        cout << "n=" << duracion2.count() << endl;
-    }
-
-    return 0;
 }
