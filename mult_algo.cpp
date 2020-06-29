@@ -139,11 +139,12 @@ void strassen(vvi &m1, vvi &m2, vvi &resultado,
     armar(p1, p2, p3, p4, p5, p6, p7, resultado, fila3, columna3, n);
 }
 
-void naive_mul(vvi &a, vvi &b, vvi &resultado, int n)
+void naive_mul(vvi &a, vvi &b, vvi &resultado,
+            int fila1, int columna1, int fila2, int columna2,int fila3, int columna3, int n)
 {
     int i, j, k;
     for(i=0; i<n; i++)
         for(j=0; j<n; j++)
             for(k=0; k<n; k++)
-                resultado[i][j] += a[i][k]*b[k][j];
+                resultado[i+fila3][j+columna3] += a[i+fila1][k+columna1]*b[k+fila2][j+columna2];
 }

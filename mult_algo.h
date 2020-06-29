@@ -19,7 +19,8 @@ void armar(vvi &p1, vvi &p2, vvi &p3, vvi &p4, vvi &p5, vvi &p6, vvi &p7, vvi &r
 void strassen(vvi &m1, vvi &m2, vvi &resultado,
             int fila1, int columna1, int fila2, int columna2, int fila3, int columna3, int n);
 
-void naive_mul(vvi &a, vvi &b, vvi &resultado, int n);
+void naive_mul(vvi &a, vvi &b, vvi &resultado,
+            int fila1, int columna1, int fila2, int columna2,int fila3, int columna3, int n);
     
 
 #endif
