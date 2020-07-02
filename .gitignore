@@ -1,3 +1,9 @@
 *.pdf
 *.txt
 .vscode/
+*.exe
+*.out
+*test*
+*.gch
+graficos_p3.cpp
+*.xlsx
