@@ -1,4 +1,5 @@
 *.pdf
+!informe_t1_algoritmos.pdf
 *.txt
 .vscode/
 *.exe
